@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico e Interactivo - Automotriz Grupo Flores</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Tools & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#D32F2F',
+                            darkred: '#B71C1C',
+                            black: '#1E1E1E',
+                            darkgray: '#2A2A2A',
+                            lightbg: '#F4F5F7',
+                            cardbg: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and minor tweaks */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D32F2F;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B71C1C;
+        }
+        .tab-active {
+            border-bottom: 3px solid #D32F2F;
+            color: #D32F2F;
+            font-weight: 700;
+            background-color: rgba(211, 47, 47, 0.05);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+        }
+    </style>
+</head>
+<body class="bg-brand-lightbg text-brand-black min-h-screen flex flex-col font-sans antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- Header Principal -->
+    <header class="bg-brand-black text-white shadow-lg sticky top-0 z-50 border-b-4 border-brand-red">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-red text-white p-2.5 rounded-lg shadow-md flex items-center justify-center">
+                    <i class="fa-solid fa-gears text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                        AUTOMOTRIZ GRUPO FLORES
+                    </h1>
+                    <p class="text-xs text-gray-300 font-medium">Manual Técnico & Catálogo Interactivo de Motores y Forjas</p>
+                </div>
+            </div>
+
+            <!-- Botones Rápidos -->
+            <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                <a href="tel:8000000000" class="bg-brand-red hover:bg-brand-darkred text-white text-xs sm:text-sm font-semibold px-3 py-2 rounded-md transition duration-200 flex items-center gap-2 shadow">
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="hidden md:inline">Soporte Técnico</span>
+                </a>
+                <button onclick="window.print()" class="bg-brand-darkgray hover:bg-gray-700 text-white text-xs sm:text-sm px-3 py-2 rounded-md transition duration-200 flex items-center gap-2 shadow">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="hidden md:inline">Imprimir</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú de Pestañas Navegación -->
+        <nav class="bg-white border-t border-gray-200 overflow-x-auto scrollbar-none shadow-inner no-print">
+            <div class="max-w-7xl mx-auto flex whitespace-nowrap px-2 text-sm font-medium text-gray-600">
+                <button onclick="switchTab('protocolo')" id="tab-protocolo" class="tab-btn tab-active px-4 py-3 hover:text-brand-red flex items-center gap-2 transition">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Protocolo Venta</span>
+                </button>
+                <button onclick="switchTab('fotos')" id="tab-fotos" class="tab-btn px-4 py-3 hover:text-brand-red flex items-center gap-2 transition">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>8 Fotos Obligatorias</span>
+                </button>
+                <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-4 py-3 hover:text-brand-red flex items-center gap-2 transition">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Checklist Técnico</span>
+                </button>
+                <button onclick="switchTab('catalogo')" id="tab-catalogo" class="tab-btn px-4 py-3 hover:text-brand-red flex items-center gap-2 transition">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <span class="relative">
+                        Catálogo & Buscador Forjas
+                        <span class="ml-1 px-1.5 py-0.5 text-[10px] bg-brand-red text-white rounded-full font-bold">78+</span>
+                    </span>
+                </button>
+                <button onclick="switchTab('instalacion')" id="tab-instalacion" class="tab-btn px-4 py-3 hover:text-brand-red flex items-center gap-2 transition">
+                    <i class="fa-solid fa-oil-can"></i>
+                    <span>Instalación & Aceites</span>
+                </button>
+                <button onclick="switchTab('garantia')" id="tab-garantia" class="tab-btn px-4 py-3 hover:text-brand-red flex items-center gap-2 transition">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Póliza de Garantía</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- ================= PESTAÑA 1: PROTOCOLO DE VENTAS ================= -->
+        <section id="sec-protocolo" class="tab-content block space-y-6">
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-brand-red">
+                <h2 class="text-2xl font-bold text-brand-black mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-handshake text-brand-red"></i>
+                    Protocolo de Atención y Ventas de Motores
+                </h2>
+                <p class="text-gray-600">Pautas estándar obligatorias para el asesor de ventas y el técnico recepciomador de Automotriz Grupo Flores.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Paso 1 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-red-100 text-brand-red rounded-full flex items-center justify-center font-bold text-lg mb-4">1</div>
+                    <h3 class="font-bold text-lg mb-2 text-brand-black">Identificación Exacta</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                        Nunca vender por año o modelo únicamente. Es **MANDATORIO** solicitar la forja grabada en monoblock/cabeza y fotografías directas del motor del cliente.
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1 list-disc list-inside">
+                        <li>Revisar número de puertos de admisión/escape.</li>
+                        <li>Verificar tipo de VVT (0VVT, 1VVT, 2VVT).</li>
+                        <li>Confirmar si es bayoneta a monoblock o tapa.</li>
+                    </ul>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-red-100 text-brand-red rounded-full flex items-center justify-center font-bold text-lg mb-4">2</div>
+                    <h3 class="font-bold text-lg mb-2 text-brand-black">Explicación de Piezas a Transferir</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                        Informar claramente al comprador que los motores 3/4 o 7/8 requieren transferencia de accesorios originales para evitar códigos de falla DTC o fallas de tiempo.
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1 list-disc list-inside">
+                        <li>Cárter, sensores de posición (CKP/CMP).</li>
+                        <li>Múltiples de admisión, polea damper.</li>
+                        <li>Enfriadores de aceite y coladeras.</li>
+                    </ul>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-red-100 text-brand-red rounded-full flex items-center justify-center font-bold text-lg mb-4">3</div>
+                    <h3 class="font-bold text-lg mb-2 text-brand-black">Registro y Expediente de Garantía</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                        Antes de la salida del motor, recopilar obligatoriamente los datos del vehículo receptor, kilometraje y firmar la póliza de entrega.
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1 list-disc list-inside">
+                        <li>Capturar las 8 fotos obligatorias antes del envío.</li>
+                        <li>Entregar guía de aceite y torques adjunta.</li>
+                        <li>Registrar número de serie / folio interno.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Banner Alerta de Riesgo -->
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl flex items-start gap-3">
+                <i class="fa-solid fa-triangle-exclamation text-amber-600 text-xl mt-0.5"></i>
+                <div class="text-sm text-amber-800">
+                    <strong class="font-bold">Regla de Oro en Grupo Flores:</strong> Motor vendido con diferencia de forja sin notificación escrita en la nota de remisión invalida el cambio inmediato. Asegúrese de cotejar el catálogo interactivo.
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA 2: 8 FOTOS OBLIGATORIAS ================= -->
+        <section id="sec-fotos" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-brand-red">
+                <h2 class="text-2xl font-bold text-brand-black mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-camera-retro text-brand-red"></i>
+                    Protocolo Digital: 8 Fotos Obligatorias para Garantía
+                </h2>
+                <p class="text-gray-600 text-sm">Todo motor recibido para cambio o despachado debe contar con estas 8 evidencias fotográficas nítidas archivadas en el expediente del cliente.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Foto 1 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 1</span>
+                        <i class="fa-solid fa-cube text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-engine text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Frente Completo del Motor</h4>
+                        <p class="text-xs text-gray-500">Muestra la tapa de distribución, poleas, alternador y accesorios frontal.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 2 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 2</span>
+                        <i class="fa-solid fa-barcode text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-stamp text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Forja Grabada / Monoblock</h4>
+                        <p class="text-xs text-gray-500">Acercamiento legible del código o casting troquelado en el bloque.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 3 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 3</span>
+                        <i class="fa-solid fa-gears text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-align-left text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Costado Izquierdo (Admisión)</h4>
+                        <p class="text-xs text-gray-500">Puertos de admisión, inyectores, arnés principal y soportes.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 4 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 4</span>
+                        <i class="fa-solid fa-fire text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-align-right text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Costado Derecho (Escape)</h4>
+                        <p class="text-xs text-gray-500">Múltiple de escape, turbo (si aplica), enfriadores y bayoneta.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 5 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 5</span>
+                        <i class="fa-solid fa-oil-can text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-bucket text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Cárter e Inspección Inferior</h4>
+                        <p class="text-xs text-gray-500">Muestra la forma del cárter, tapón de drenado y sensores inferiores.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 6 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 6</span>
+                        <i class="fa-solid fa-arrow-up-from-ground-water text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-circle-notch text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Parte Trasera / Volante Crema</h4>
+                        <p class="text-xs text-gray-500">Retén de cigüeñal trasero, cremallera o volante de inercia.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 7 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 7</span>
+                        <i class="fa-solid fa-circle-radiation text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-eye text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Tapa de Punterías / Árboles</h4>
+                        <p class="text-xs text-gray-500">Vista superior para verificar estado de distribución o tapón de llenado.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 8 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-brand-black text-white p-3 font-bold text-xs flex justify-between items-center">
+                        <span>FOTO 8</span>
+                        <i class="fa-solid fa-shield-virus text-brand-red"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <i class="fa-solid fa-temperature-arrow-up text-4xl text-gray-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-800">Sellos Térmicos / Tapones Térmicos</h4>
+                        <p class="text-xs text-gray-500">Foto clara de los sellos de sobrecalentamiento intactos instalados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA 3: CHECKLIST TÉCNICO ================= -->
+        <section id="sec-checklist" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-brand-red">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-brand-black flex items-center gap-2">
+                            <i class="fa-solid fa-square-check text-brand-red"></i>
+                            Checklist Técnico Interactivo Pre-Instalación
+                        </h2>
+                        <p class="text-gray-600 text-sm">Marque los puntos de control obligatorios antes de dar marcha al motor.</p>
+                    </div>
+                    <button onclick="resetChecklist()" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded-md transition font-medium">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar Checklist
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bloque 1 -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 space-y-3">
+                    <h3 class="font-bold text-brand-red border-b pb-2 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-wrench"></i> 1. Preparación Mecánica y Ensamble
+                    </h3>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Limpieza completa de radiador, mangueras y reemplazo de termostato obligatorios.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Verificación e instalación de coladera/pichancha de aceite limpia sin residuos.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Cálculo e instalación del cárter correcto según la bahía del vehículo receptor.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Verificación de empaques nuevos de admisión, escape y ligas de inyectores.</span>
+                    </label>
+                </div>
+
+                <!-- Bloque 2 -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 space-y-3">
+                    <h3 class="font-bold text-brand-red border-b pb-2 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-car-battery"></i> 2. Sistema Eléctrico y Fluidos
+                    </h3>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Carga de aceite de motor con viscosidad original especificada para la forja.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Uso exclusivo de anticongelante concentrado (PROHIBIDO USO DE AGUA).</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Comprobación de tierras del motor al chasis y arnés de sensores CKP/CMP.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded">
+                        <input type="checkbox" class="chk-item mt-1 w-4 h-4 text-brand-red rounded focus:ring-brand-red" onchange="updateCheckProgress()">
+                        <span class="text-sm text-gray-700">Purga del sistema de lubricación dando Marcha sin Chispa/Combustible hasta cargar presión.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Barra de Progreso del Checklist -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-bold text-brand-black">Progreso de Verificación Taller:</span>
+                    <span id="chk-percentage" class="text-sm font-extrabold text-brand-red">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                    <div id="chk-bar" class="bg-brand-red h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA 4: CATÁLOGO COMPLETO DE FORJAS (MEJORADO) ================= -->
+        <section id="sec-catalogo" class="tab-content hidden space-y-6">
+
+            <!-- Banner de Buscador Avanzado con Filtros Complejos -->
+            <div class="bg-brand-black text-white p-6 rounded-2xl shadow-xl border-b-4 border-brand-red">
+                <div class="mb-4">
+                    <h2 class="text-2xl font-black text-white flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass text-brand-red"></i>
+                        Buscador Avanzado de Motores & Forjas
+                    </h2>
+                    <p class="text-gray-300 text-xs sm:text-sm mt-1">
+                        Filtre instantáneamente por <span class="text-red-400 font-semibold">Año exacto (ej. 2018)</span>, <span class="text-red-400 font-semibold">Modelo (ej. Aveo, X-Trail, Rio)</span>, <span class="text-red-400 font-semibold">Código de Forja</span> o <span class="text-red-400 font-semibold">Marca</span>.
+                    </p>
+                </div>
+
+                <!-- Panel de Control de Filtros Integrado -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    
+                    <!-- Campo 1: Búsqueda Libre -->
+                    <div class="relative">
+                        <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Búsqueda General</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400 text-sm"></i>
+                            <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Ej: Aveo, X-Trail, L2B, KA24..." class="w-full bg-gray-800 text-white pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-700 focus:outline-none focus:border-brand-red transition">
+                        </div>
+                    </div>
+
+                    <!-- Campo 2: Filtro por Marca / Grupo -->
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Marca / Armadora</label>
+                        <select id="filter-brand" onchange="applyFilters()" class="w-full bg-gray-800 text-white px-3 py-2 text-sm rounded-lg border border-gray-700 focus:outline-none focus:border-brand-red transition">
+                            <option value="">Todas las Marcas</option>
+                            <option value="Chevrolet/GM">Chevrolet / GM</option>
+                            <option value="Nissan/Renault">Nissan / Renault</option>
+                            <option value="Kia/Hyundai/Dodge">Kia / Hyundai / Dodge</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Ford">Ford</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="BMW/Peugeot/Cummins">BMW / Peugeot / Cummins</option>
+                        </select>
+                    </div>
+
+                    <!-- Campo 3: Año Específico de Vehículo -->
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Filtrar por Año Exacto</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-calendar-days absolute left-3 top-3 text-gray-400 text-sm"></i>
+                            <input type="number" id="filter-year" oninput="applyFilters()" min="1990" max="2027" placeholder="Ej: 2018" class="w-full bg-gray-800 text-white pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-700 focus:outline-none focus:border-brand-red transition">
+                        </div>
+                    </div>
+
+                    <!-- Botón Limpiar -->
+                    <div class="flex items-end">
+                        <button onclick="clearFilters()" class="w-full bg-brand-red hover:bg-brand-darkred text-white py-2 px-4 rounded-lg font-bold text-sm transition flex items-center justify-center gap-2 shadow-md">
+                            <i class="fa-solid fa-filter-circle-xmark"></i>
+                            Limpiar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resumen de Contadores -->
+                <div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400">
+                    <div>
+                        Mostrando <span id="count-visible" class="font-bold text-white text-sm">0</span> de <span id="count-total" class="font-bold text-white text-sm">0</span> motores en catálogo.
+                    </div>
+                    <div id="filter-status-tag" class="text-brand-red font-semibold hidden">
+                        <i class="fa-solid fa-circle-dot animate-pulse mr-1"></i> Filtros aplicados
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista Dinámica de Tarjetas de Motores -->
+            <div id="catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Se puebla mediante JavaScript con los 78+ motores -->
+            </div>
+
+            <!-- Estado sin resultados -->
+            <div id="no-results" class="hidden text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
+                <i class="fa-solid fa-engine-warning text-5xl text-gray-300 mb-3"></i>
+                <h3 class="text-lg font-bold text-gray-700">No se encontraron motores o forjas coincidentes</h3>
+                <p class="text-sm text-gray-500 mt-1">Intente cambiar el año, el modelo o limpiar los filtros de búsqueda.</p>
+                <button onclick="clearFilters()" class="mt-4 bg-brand-red text-white text-xs font-bold px-4 py-2 rounded-md">Restablecer Búsqueda</button>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA 5: INSTALACIÓN Y ACEITES ================= -->
+        <section id="sec-instalacion" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-brand-red">
+                <h2 class="text-2xl font-bold text-brand-black mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-oil-can text-brand-red"></i>
+                    Guía de Instalación, Torques Generales y Viscosidad de Aceite
+                </h2>
+                <p class="text-gray-600 text-sm">Especificaciones recomendadas para asegurar la vida útil y prevenir el desgaste prematuro.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Tabla de Aceite por Años/Tecnología -->
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-lg text-brand-black border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-droplet text-brand-red"></i> Tabla de Viscosidades por Generación
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-gray-600">
+                            <thead class="text-xs uppercase bg-brand-black text-white">
+                                <tr>
+                                    <th class="p-2.5">Año / Tecnología</th>
+                                    <th class="p-2.5">Viscosidad</th>
+                                    <th class="p-2.5">Especificación</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-800">2018 - Reciente (VVT / Turbo / Directa)</td>
+                                    <td class="p-2.5 font-extrabold text-brand-red">0W-20 / 5W-20</td>
+                                    <td class="p-2.5">Sintético Dexos1 Gen2 / API SP</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-800">2010 - 2017 (Motores VVT Estándar)</td>
+                                    <td class="p-2.5 font-extrabold text-brand-red">5W-30</td>
+                                    <td class="p-2.5">100% Sintético / Semi-sintético</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-800">2000 - 2009 (Motores Convencionales)</td>
+                                    <td class="p-2.5 font-extrabold text-brand-red">10W-30 / 10W-40</td>
+                                    <td class="p-2.5">Multigrado API SN</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-800">Diesel Ligero / Heavy Duty (Cummins / HDi)</td>
+                                    <td class="p-2.5 font-extrabold text-brand-red">15W-40 / 5W-30 DPF</td>
+                                    <td class="p-2.5">API CK-4 / CJ-4 Low SAPS</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-500 italic">* Nota: El uso de aceites de alta viscosidad (20W-50) en motores VVT modernos bloquea los actuadores de tiempo y anula la garantía.</p>
+                </div>
+
+                <!-- Pasos de Asentamiento de Motor Nuevo/Remanufacturado -->
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-lg text-brand-black border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-gauge-high text-brand-red"></i> Proceso de Asentamiento y Purga
+                    </h3>
+                    <ol class="text-xs text-gray-700 space-y-3 list-decimal list-inside leading-relaxed">
+                        <li class="p-2 bg-gray-50 rounded">
+                            <strong class="text-brand-black">Carga de Presión Prevaciado:</strong> Girar el motor mediante marcha sin activar bobinas ni bomba de gasolina hasta que el testigo de aceite se apague en el tablero.
+                        </li>
+                        <li class="p-2 bg-gray-50 rounded">
+                            <strong class="text-brand-black">Primer Encendido (Idle):</strong> Mantener a 1,500 RPM durante 15 minutos continuos observando temperatura y fugas de agua/aceite.
+                        </li>
+                        <li class="p-2 bg-gray-50 rounded">
+                            <strong class="text-brand-black">Primer Cambio de Filtro:</strong> Reemplazar el filtro de aceite y el lubricante inicial tras los primeros 500 km recorridos para eliminar rebabas de asentamiento.
+                        </li>
+                        <li class="p-2 bg-gray-50 rounded">
+                            <strong class="text-brand-black">Límite de Carga inicial:</strong> No exceder las 3,500 RPM ni someter a cargas pesadas de remolque durante los primeros 1,000 kilómetros.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA 6: PÓLIZA DE GARANTÍAS ================= -->
+        <section id="sec-garantia" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-brand-red">
+                <h2 class="text-2xl font-bold text-brand-black mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-file-contract text-brand-red"></i>
+                    Póliza de Garantía Automotriz Grupo Flores
+                </h2>
+                <p class="text-gray-600 text-sm">Términos, condiciones y cobertura estándar para motores remanufacturados y semi-nuevos.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                        <div class="text-2xl font-black text-brand-red">6 MESES</div>
+                        <div class="text-xs text-gray-600 font-semibold mt-1">Cobertura Estándar Motores 3/4 y 7/8</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                        <div class="text-2xl font-black text-brand-black">10,000 KM</div>
+                        <div class="text-xs text-gray-600 font-semibold mt-1">Límite de Recorrido</div>
+                    </div>
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                        <div class="text-2xl font-black text-brand-red">100% COBERTURA</div>
+                        <div class="text-xs text-gray-600 font-semibold mt-1">Defectos de Ensamble y Piezas Internas</div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
+                    <h3 class="font-bold text-base text-brand-black border-b pb-1">1. Cláusulas de Cobertura</h3>
+                    <p>
+                        Automotriz Grupo Flores garantiza que el motor entregado se encuentra libre de defectos de lubricación interna, ruidos mecánicos anómalos o fallas de compresión en sus componentes rotativos (cigüeñal, bielas, pistones, árboles de levas y válvulas).
+                    </p>
+
+                    <h3 class="font-bold text-base text-brand-red border-b pb-1">2. Causas de Anulación Inmediata de Garantía</h3>
+                    <ul class="list-disc list-inside space-y-1.5 text-gray-600 pl-2">
+                        <li><strong class="text-gray-800">SOBRECALENTAMIENTO:</strong> Fundición o derretimiento de los tapones / sellos térmicos térmicos pegados en el monoblock.</li>
+                        <li><strong class="text-gray-800">FALTA DE LUBRICACIÓN:</strong> Operar el motor con nivel bajo de aceite o por bloqueo de la pichancha debido a silicones no autorizados.</li>
+                        <li><strong class="text-gray-800">DESATIEMPO / COLISIÓN DE VÁLVULAS:</strong> Modificación o mala instalación de la cadena/banda de distribución por parte del instalador externo.</li>
+                        <li><strong class="text-gray-800">DESARMADO NO AUTORIZADO:</strong> Retirar cabezas, cárter o tapas sin la presencia de un perito autorizado de Automotriz Grupo Flores.</li>
+                        <li><strong class="text-gray-800">USO DE AGUA EN LUGAR DE REFRIGERANTE:</strong> Oxidación interna o picadura de galerías de agua.</li>
+                    </ul>
+
+                    <h3 class="font-bold text-base text-brand-black border-b pb-1">3. Procedimiento para Reclamaciones</h3>
+                    <p>
+                        En caso de presentar alguna eventualidad, el cliente deberá presentar la nota fiscal de compra, las 8 fotografías del protocolo de recepción guardadas e ingresar el vehículo o motor a evaluación técnica previa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black text-gray-400 text-xs py-6 border-t border-gray-800 no-print mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-semibold text-gray-300">AUTOMOTRIZ GRUPO FLORES &copy; <span id="year-copy"></span> - Todos los derechos reservados.</p>
+            <p class="text-gray-500">Sistema Interactivo de Soporte Técnico y Consulta de Forjas para Taller y Red de Ventas.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE DATOS Y LÓGICA -->
+    <script>
+        // Array de datos completo con los 78+ motores solicitados
+        const MOTORES = [
+            // CHEVROLET / GM
+            { brand: "Chevrolet/GM", name: "L12D1 1.2L", code: "L12D1", years: [2011, 2012, 2013, 2014, 2015, 2016, 2017], yearStr: "2011-2017", vehicles: ["Spark 1.2L", "Beat 1.2L"], notes: "Verificar tipo de tapa de distribución y posición de sensor CKP. Transferir múltiples." },
+            { brand: "Chevrolet/GM", name: "F16DA / F16D4 1.6L", code: "F16DA / F16D4", years: [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018], yearStr: "2008-2018", vehicles: ["Aveo 1.6L", "G3 1.6L", "Cruze 1.6L"], notes: "F16D4 incluye solenoide VVT variable en engranes. Verificar tipo de cárter." },
+            { brand: "Chevrolet/GM", name: "F18D4 1.8L", code: "F18D4", years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017], yearStr: "2010-2017", vehicles: ["Cruze 1.8L", "Sonic 1.8L", "Tracker 1.8L"], notes: "Revisar base de filtro de aceite y enfriador. Cambiar ligas de enfriador obligatoriamente." },
+            { brand: "Chevrolet/GM", name: "F16D3 1.6L", code: "F16D3", years: [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011], yearStr: "2004-2011", vehicles: ["Optra 1.6L", "Aveo Viejo"], notes: "Doble árbol de levas sin VVT. Transferir polea damper y cárter." },
+            { brand: "Chevrolet/GM", name: "L2B / LB12 1.5L", code: "L2B / LB12", years: [2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2018-2024", vehicles: ["Aveo Nueva Generación 1.5L", "Cavalier 1.5L"], notes: "Motor con cadena de distribución y doble VVT. Transferir bobina de encendido y múltiple plástico." },
+            { brand: "Chevrolet/GM", name: "B10S / B12S", code: "B10S / B12S", years: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], yearStr: "2005-2015", vehicles: ["Matiz 1.0L", "Spark 1.0L Export"], notes: "3 y 4 cilindros según versión. Cotejar posición del distribuidor o paquete de bobinas." },
+            { brand: "Chevrolet/GM", name: "G16A / C16SE 1.6L", code: "G16A / C16SE", years: [1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012], yearStr: "1996-2012", vehicles: ["Chevy C1 / C2 / C3 1.6L MPFI"], notes: "Un solo árbol de levas (SOHC). Revisar rosca de polea de cigüeñal y cuñero." },
+            { brand: "Chevrolet/GM", name: "F18D3 1.8L", code: "F18D3", years: [2006, 2007, 2008, 2009, 2010], yearStr: "2006-2010", vehicles: ["Optra 1.8L"], notes: "DOHC sin variadores de avance. Transferir múltiple de admisión y sensores." },
+            { brand: "Chevrolet/GM", name: "F15 1.5L Turbo / N.A.", code: "F15D / L15", years: [2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2018-2024", vehicles: ["Cavalier Turbo 1.3/1.5", "Groove 1.5L", "Captiva 1.5T"], notes: "Inyección directa / multipunto. Cotejar soporte de motor derecho y enfriador de aceite." },
+            { brand: "Chevrolet/GM", name: "A14NET 1.4L Turbo", code: "A14NET / LUJ", years: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020], yearStr: "2012-2020", vehicles: ["Trax 1.4T", "Cruze 1.4T", "Sonic RS Turbo"], notes: "Monoblock de hierro con turbo acoplado. Verificar junta de tapa de punterías y válvula PCV incorporada." },
+            { brand: "Chevrolet/GM", name: "LE2 1.4L Direct Injection", code: "LE2 1.4T", years: [2016, 2017, 2018, 2019, 2020, 2021, 2022], yearStr: "2016-2022", vehicles: ["Cruze Nueva Generación 1.4T", "Equinox 1.5T (Deriv)"], notes: "Bloque de aluminio inyección directa. Atento a retenes de cigüeñal especiales." },
+            { brand: "Chevrolet/GM", name: "LTG 2.0L Turbo", code: "LTG 2.0T", years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], yearStr: "2013-2021", vehicles: ["Malibu 2.0T", "Camaro 2.0T", "Equinox 2.0T"], notes: "Motor Ecotech Generación 3 High-Power. Transferir bomba de alta presión de gasolina." },
+            { brand: "Chevrolet/GM", name: "Ecotec 2.4L (LE5 / LE9 / LAF)", code: "LE5 / LE9 / LAF", years: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017], yearStr: "2006-2017", vehicles: ["Captiva Sport 2.4L", "Equinox 2.4L", "Malibu 2.4L", "Terrain 2.4L"], notes: "Inyección Directa vs Multipunto. Diferencia en sensores de bomba de alta y cadena de tiempo." },
+            { brand: "Chevrolet/GM", name: "Tornado Van 1.5L", code: "N15A / Tornado Van", years: [2021, 2022, 2023, 2024, 2025], yearStr: "2021-2025", vehicles: ["Tornado Van 1.5L"], notes: "Motor tracción trasera longitudinal. Revisar cárter profundo y posición de base de alternador." },
+
+            // NISSAN / RENAULT
+            { brand: "Nissan/Renault", name: "KA24 2.4L 12V", code: "KA24E (12 Válvulas)", years: [1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004], yearStr: "1993-2004", vehicles: ["Estaquitas D21/D22", "Pick Up 2.4L 12V"], notes: "Un solo árbol de levas. Tapa de punterías cuadrada de aluminio." },
+            { brand: "Nissan/Renault", name: "KA24 2.4L 16V", code: "KA24DE (16 Válvulas)", years: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011], yearStr: "2000-2011", vehicles: ["Nissan D22 NP300 2.4L", "Urvan 2.4L"], notes: "Doble árbol de levas. Cárter difiere entre Urvan (profundo) y PickUp Estaquitas (plano)." },
+            { brand: "Nissan/Renault", name: "QR25DE 0VVT (Sin Avance)", code: "QR25DE (4JM / EA0)", years: [2002, 2003, 2004, 2005, 2006], yearStr: "2002-2006", vehicles: ["X-Trail T30", "Altima 2.5L 0VVT"], notes: "Sin engrane variable VVT en admisión. Cubierta de distribución lisa." },
+            { brand: "Nissan/Renault", name: "QR25DE 1VVT (Avance Admisión)", code: "QR25DE (MA0 / 6N2)", years: [2007, 2008, 2009, 2010, 2011, 2012, 2013], yearStr: "2007-2013", vehicles: ["X-Trail T31", "Altima 2.5L", "Rogue 2.5L", "Urvan 2.5L QR25"], notes: "1 Solenoide VVT en admisión. Cárter Urvan difiere de X-Trail. Transferir coladera." },
+            { brand: "Nissan/Renault", name: "QR25DE 2VVT / NP300", code: "QR25DE (JA0 / NP300)", years: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2014-2024", vehicles: ["NP300 Frontier 2.5L Gasolina", "Urvan NV350 QR25"], notes: "Doble VVT con tapas de plástico/aluminio. Bayoneta en tapa de distribución." },
+            { brand: "Nissan/Renault", name: "MR18DE 1.8L", code: "MR18DE", years: [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018], yearStr: "2007-2018", vehicles: ["Tiida 1.8L", "Cube 1.8L"], notes: "Bloque de aluminio. Sin sensor CKP en monoblock (lee en cremallera). Cambiar termostato dual." },
+            { brand: "Nissan/Renault", name: "MR20DE 2.0L", code: "MR20DE", years: [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019], yearStr: "2007-2019", vehicles: ["Sentra B16/B17 2.0L", "X-Trail 2.0L", "Clio Campus 2.0"], notes: "Atención al torque de bujías (máx 15 lb-ft) para no agrietar rosca de cabeza de cilindros." },
+            { brand: "Nissan/Renault", name: "HR16DE / H4M 1.6L", code: "HR16DE / H4M", years: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2012-2024", vehicles: ["Versa", "March", "Note", "Kicks 1.6L", "Renault Duster 1.6L"], notes: "Doble inyector por cilindro en versiones recientes. Verificar cuerpo de aceleración y soporte de alternador." },
+            { brand: "Nissan/Renault", name: "MRA8DE 1.8L 2VVT", code: "MRA8DE", years: [2013, 2014, 2015, 2016, 2017, 2018, 2019], yearStr: "2013-2019", vehicles: ["Sentra B17 1.8L"], notes: "Carrera larga con doble VVT electromagnético. Usar aceite 5W-30/0W-20 exclusivamente." },
+            { brand: "Nissan/Renault", name: "K4M 1.6L 16V", code: "K4M (Renault/Nissan)", years: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], yearStr: "2002-2015", vehicles: ["Platina 1.6L", "Clio 1.6L", "Kangoo 1.6L", "Aperita / Sandero"], notes: "Distribución por banda. Requiere herramienta de tiempo especial Renault para ensamble." },
+            { brand: "Nissan/Renault", name: "YD25DDTi 2.5L Diesel (4 Puertos)", code: "YD25 (4 Puertos)", years: [2005, 2006, 2007, 2008, 2009, 2010], yearStr: "2005-2010", vehicles: ["Frontier D22 Diesel", "Urvan 2.5 Diesel Vieja"], notes: "Múltiple de admisión de 4 puertos rectangulares. Bomba VP44 o Common Rail." },
+            { brand: "Nissan/Renault", name: "YD25DDTi 2.5L Diesel (8 Puertos)", code: "YD25 (8 Puertos)", years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], yearStr: "2011-2021", vehicles: ["NP300 Frontier D23 Diesel", "NV350 Urvan Diesel"], notes: "8 puertos de admisión redondos. Doble cadena de distribución diésel. Cambiar retenes." },
+            { brand: "Nissan/Renault", name: "K25 / K21 Industrial", code: "K25 / K21", years: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2000-2024", vehicles: ["Montacargas Nissan / Caterpillar / UniCarriers"], notes: "Gas L.P. / Gasolina industrial. Inspeccionar polea de cigüeñal y campana de transmisión." },
+
+            // KIA / HYUNDAI / DODGE
+            { brand: "Kia/Hyundai/Dodge", name: "G4LA 1.2L / 1.25L", code: "G4LA", years: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2012-2024", vehicles: ["Hyundai Grand i10 1.2L", "Kia Picanto 1.2L", "Dodge i10"], notes: "4 cilindros con cadena. Distinguir de versión G3LA de 3 cilindros. Transferir sensor CMP." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4KJ 2.4L GDI (Viejo / Nuevo)", code: "G4KJ GDI", years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], yearStr: "2011-2021", vehicles: ["Kia Optima 2.4L", "Kia Sorento 2.4L", "Hyundai Sonata 2.4L", "Santa Fe 2.4L"], notes: "Inyección Directa GDI. Inspeccionar bujías e instalar bomba de alta presión original." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4FG 1.6L Gamma", code: "G4FG", years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2016-2024", vehicles: ["Kia Rio 1.6L", "Kia Forte 1.6L", "Hyundai Creta 1.6L", "Accent 1.6L"], notes: "Doble CVVT. Cotejar cárter de aluminio o lámina y presencia de enfriador de aceite." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4FD 1.6L GDI Turbo / NA", code: "G4FD GDI", years: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020], yearStr: "2012-2020", vehicles: ["Veloster 1.6L", "Tucson 1.6T", "Kia Soul 1.6L GDI"], notes: "Inyección directa GDI. Tapa de punterías difiere de G4FG de inyección puerto." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4KH 2.0L Turbo GDI Theta II", code: "G4KH 2.0T", years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], yearStr: "2013-2021", vehicles: ["Kia Stinger 2.0T", "Optima Turbo", "Hyundai Sonata 2.0T"], notes: "Turbo inyección directa. Módulos de balanceador de aceite requeridos en cárter." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4FC / G4FA 1.4L / 1.6L", code: "G4FC / G4FA", years: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], yearStr: "2006-2015", vehicles: ["Dodge Attitude 1.4/1.6L", "Hyundai Elantra 1.6L", "Kia Soul 1.6L"], notes: "1VVT en admisión. Cárter de lámina simple." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4NH 2.0L Atkinson", code: "G4NH 2.0L", years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2017-2024", vehicles: ["Kia Forte 2.0L", "Hyundai Elantra 2.0L", "K3 2.0L"], notes: "Ciclo Atkinson inyección MPI dual. Aceite ultra fluido 0W-20 obligatorio." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4LC 1.4L Kappa II", code: "G4LC", years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], yearStr: "2015-2022", vehicles: ["Hyundai Accent 1.4L", "Kia Rio 1.4L Euro Spec"], notes: "Motor compacto 1.4L Kappa. Transferir accesorios y múltiple." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4NA 2.0L Nu (Viejo / Nuevo)", code: "G4NA Nu", years: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023], yearStr: "2012-2023", vehicles: ["Kia Sportage 2.0L", "Hyundai Tucson 2.0L", "Elantra 2.0L", "Soul 2.0L"], notes: "Doble CVVT. Ojo con la variación del sensor de temperatura en toma de agua y base de alternador." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4HG 1.1L Epsilon", code: "G4HG 1.1L", years: [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012], yearStr: "2004-2012", vehicles: ["Dodge Atos 1.1L", "Hyundai i10 1.1L"], notes: "4 cilindros en línea banda de tiempo. Revisar posición de soporte frontal." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4KG 2.4L Theta II MPI", code: "G4KG 2.4L", years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020], yearStr: "2010-2020", vehicles: ["Hyundai H100 Gasolina 2.4L", "H1 Van 2.4L"], notes: "Inyección multipunto tracción trasera. Cárter profundo." },
+            { brand: "Kia/Hyundai/Dodge", name: "D4BH / D4CB 2.5L Diesel 8V/16V", code: "D4BH / D4CB Diesel", years: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], yearStr: "2006-2021", vehicles: ["Hyundai H100 Diesel", "H100 Wagon", "Dodge H100 Pick Up"], notes: "D4BH es 8V bomba inyectora mecánica/electrónica; D4CB es 16V Common Rail Turbo." },
+            { brand: "Kia/Hyundai/Dodge", name: "G4FJ 1.6L Turbo Gamma T-GDI", code: "G4FJ 1.6T", years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023], yearStr: "2015-2023", vehicles: ["Kia Forte GT 1.6T", "Soul Turbo", "Hyundai Veloster Turbo", "Tucson Turbo"], notes: "Inyección directa T-GDI. Inspeccionar intercooler y tubería de presión de aceite a turbo." },
+            { brand: "Kia/Hyundai/Dodge", name: "Atos 1.0L / 1.1L (G4HC)", code: "G4HC / G4HG", years: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012], yearStr: "2000-2012", vehicles: ["Dodge Atos 1.0L", "Atos 1.1L"], notes: "SOHC 12 Válvulas. Cotejar número de dientes en polea de cigüeñal y árbol." },
+
+            // HONDA
+            { brand: "Honda", name: "K24A / K24Z / K24W 2.4L", code: "K24A / K24Z / K24W", years: [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017], yearStr: "2003-2017", vehicles: ["CR-V 2.4L", "Accord 2.4L", "Civic Si 2.4L", "Element 2.4L"], notes: "K24A VTEC en admisión/escape; K24Z escape integrado en cabeza. K24W es Earth Dreams Direct Injection." },
+            { brand: "Honda", name: "R18A / R18Z 1.8L", code: "R18A / R18Z", years: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017], yearStr: "2006-2017", vehicles: ["Civic 1.8L", "HR-V 1.8L"], notes: "SOHC i-VTEC. Múltiple de escape integrado en cabeza. Sensible a bujías no originales." },
+
+            // FORD
+            { brand: "Ford", name: "Dragon 1.5L 3 Cilindros", code: "Dragon 1.5L Ti-VCT", years: [2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2018-2024", vehicles: ["EcoSport 1.5L 3Cil", "Figo 1.5L 3Cil (2019+)"], notes: "Banda de distribución húmeda en aceite. Usar exclusivamente aceite homologado Ford WSS-M2C948-B." },
+            { brand: "Ford", name: "Transit 2.2L TDCi (Árbol Bocón vs No Bocón)", code: "PUMA 2.2L TDCi", years: [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], yearStr: "2008-2022", vehicles: ["Transit 2.2L RWD / FWD", "Ranger 2.2 Diesel"], notes: "CRÍTICO: Distinguir Árbol Bocón (Diámetro de apoyo grueso) vs No Bocón (Estándar). FWD cárter cruzado vs RWD plano." },
+            { brand: "Ford", name: "Duratec 2.0L / 2.3L / 2.5L", code: "Duratec HE 2.0/2.3/2.5", years: [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020], yearStr: "2004-2020", vehicles: ["Focus 2.0L", "Ranger 2.3L Gasolina", "Fusion 2.5L", "Escape 2.5L"], notes: "Sin cuñero en cigüeñal ni engranes de árbol. Requiere perno de fijación de punto muerto superior obligatoriamente." },
+            { brand: "Ford", name: "EcoBoost 1.0L Fox 3 Cilindros", code: "1.0L EcoBoost Fox", years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], yearStr: "2013-2021", vehicles: ["Fiesta 1.0T", "EcoBoost 1.0L Focus"], notes: "Banda de tiempo sumergida en aceite. Reemplazo preventivo estricto." },
+            { brand: "Ford", name: "Fiesta / Figo 1.5L / 1.6L Sigma", code: "Sigma 1.5L / 1.6L Ti-VCT", years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019], yearStr: "2011-2019", vehicles: ["Fiesta 1.6L", "Figo 1.5L 4Cil", "Courier 1.6L"], notes: "Banda de tiempo exterior. Polea damper flotante sin cuñero." },
+
+            // TOYOTA
+            { brand: "Toyota", name: "3SZ-VE 1.5L", code: "3SZ-VE", years: [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], yearStr: "2007-2022", vehicles: ["Avanza 1.5L"], notes: "Motor Daihatsu/Toyota con cadena. Transferir cárter y base de filtro de aceite según transmisión." },
+            { brand: "Toyota", name: "2TR-FE 2.7L (Bayoneta Monoblock vs Tapa)", code: "2TR-FE 2.7L", years: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2005-2024", vehicles: ["Hiace 2.7L", "Hilux 2.7L", "Tacoma 2.7L"], notes: "CRÍTICO: Distinguir si la bayoneta entra al monoblock (2005-2015) o entra a la tapa de distribución (2016+ Dual VVT)." },
+            { brand: "Toyota", name: "4Y 2.2L Industrial / PickUp", code: "4Y 2.2L", years: [1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "1988-2024", vehicles: ["Montacargas Toyota Serie 7/8", "Stout", "Hiace Vieja"], notes: "MotorOHV por varillas de empuje. Verificar carburador vs sistema de inyección electrónica montacargas." },
+            { brand: "Toyota", name: "2AZ-FE 2.4L", code: "2AZ-FE 2.4L", years: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], yearStr: "2002-2015", vehicles: ["RAV4 2.4L", "Camry 2.4L", "Corolla XRS 2.4L", "Scion tC"], notes: "Revisar roscas del bloque para birlos de cabeza (tendencia a barrer roscas en aluminio). Usar heli-coil de refuerzo." },
+
+            // MAZDA
+            { brand: "Mazda", name: "PE SkyActiv-G 2.0L", code: "PE SkyActiv 2.0L", years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2013-2024", vehicles: ["Mazda 3 2.0L", "Mazda CX-3", "Mazda CX-30 2.0L", "Mazda 6 2.0L"], notes: "Alta compresión inyección directa. Múltiple de escape tipo 4-2-1 largo. Bomba de aceite conducida por cadena independiente." },
+            { brand: "Mazda", name: "PY SkyActiv-G 2.5L / Turbo", code: "PY SkyActiv 2.5L", years: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], yearStr: "2014-2024", vehicles: ["Mazda 3 2.5L", "Mazda 6 2.5L", "CX-5 2.5L", "CX-9 2.5T"], notes: "Diferenciar aspirado natural de versión Turbo (posee intercooler dinámico y enfriadores de aceite ampliados)." },
+            { brand: "Mazda", name: "2.3L Duratec / MZR (B2300)", code: "MZR 2.3L / L3", years: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], yearStr: "2001-2010", vehicles: ["Mazda 3 2.3L", "Mazda 6 2.3L", "PickUp B2300", "Ford Ranger 2.3L"], notes: "Cubo de cigüeñal sin chaveta. Requerido sincronizar con kit de bloqueo." },
+
+            // BMW / PEUGEOT / CUMMINS
+            { brand: "BMW/Peugeot/Cummins", name: "BMW N20B20 2.0L Turbo", code: "N20B20", years: [2011, 2012, 2013, 2014, 2015, 2016, 2017], yearStr: "2011-2017", vehicles: ["BMW 320i / 328i (F30)", "BMW X1", "BMW X3 2.0T", "BMW 528i"], notes: "Doble VANOS y Valvetronic. Reemplazar módulo de guía de cadena de bomba de aceite de plástico." },
+            { brand: "BMW/Peugeot/Cummins", name: "Peugeot / Citroën 1.6L BlueHDi Diesel", code: "DV6FC / DV6D (1.6 HDi)", years: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023], yearStr: "2012-2023", vehicles: ["Peugeot Partner Diesel 1.6", "Peugeot 301 Diesel", "208 Diesel", "Manager"], notes: "Inyección Common Rail Bosch. Inspeccionar retorno de inyectores y turbo Garrett." },
+            { brand: "BMW/Peugeot/Cummins", name: "Cummins 4BT 3.9L Turbo Diesel", code: "Cummins 4BT 3.9", years: [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008], yearStr: "1990-2008", vehicles: ["Camiones Camionetas 3.5 Ton", "Step Vans", "Adaptaciones Industriales"], notes: "4 Cilindros en línea 8 válvulas. Bomba inyectora VE o P7100 rotativa mecánicas. Torque pesado." },
+            { brand: "BMW/Peugeot/Cummins", name: "Cummins 6BT 5.9L Turbo Diesel", code: "Cummins 6BT 12V/24V", years: [1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007], yearStr: "1989-2007", vehicles: ["Dodge Ram 2500 / 3500", "Camiones Freightliner / International"], notes: "6 cilindros en línea. Verificar pasador KDP (Killer Dowel Pin) en tapa de distribución." }
+        ];
+
+        // Cambio de Pestañas
+        function switchTab(tabId) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            // Desactivar botones
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+
+            // Activar actual
+            document.getElementById('sec-' + tabId).classList.remove('hidden');
+            document.getElementById('sec-' + tabId).classList.add('block');
+            document.getElementById('tab-' + tabId).classList.add('tab-active');
+
+            // Scroll suave hacia arriba en movil
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Renderizado del Catálogo
+        function renderCatalog(items) {
+            const container = document.getElementById('catalog-container');
+            const noResults = document.getElementById('no-results');
+            container.innerHTML = '';
+
+            document.getElementById('count-visible').innerText = items.length;
+            document.getElementById('count-total').innerText = MOTORES.length;
+
+            if (items.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            items.forEach(engine => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition duration-200 flex flex-col justify-between overflow-hidden";
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Head de la Tarjeta -->
+                        <div class="bg-brand-black text-white p-3.5 flex justify-between items-start gap-2 border-b-2 border-brand-red">
+                            <div>
+                                <span class="bg-brand-red text-white text-[10px] font-black uppercase px-2 py-0.5 rounded tracking-wider">
+                                    ${engine.brand}
+                                </span>
+                                <h3 class="font-extrabold text-base text-white mt-1 leading-tight">${engine.name}</h3>
+                            </div>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded font-mono font-bold whitespace-nowrap">
+                                ${engine.code}
+                            </span>
+                        </div>
+
+                        <!-- Detalle y Vehículos -->
+                        <div class="p-4 space-y-3 text-xs">
+                            <div>
+                                <span class="text-gray-400 font-bold uppercase text-[10px] block">Años Compatibles:</span>
+                                <span class="inline-block bg-red-50 text-brand-red font-bold px-2 py-0.5 rounded mt-0.5 border border-red-100">
+                                    <i class="fa-regular fa-calendar-check mr-1"></i> ${engine.yearStr}
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="text-gray-400 font-bold uppercase text-[10px] block">Modelos / Aplicación:</span>
+                                <p class="text-gray-800 font-medium leading-relaxed mt-0.5">
+                                    ${engine.vehicles.join(", ")}
+                                </p>
+                            </div>
+
+                            <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                                <span class="text-brand-darkred font-bold uppercase text-[10px] block flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-info"></i> Observaciones / Adaptación:
+                                </span>
+                                <p class="text-gray-600 mt-1 leading-normal">
+                                    ${engine.notes}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer de Tarjeta -->
+                    <div class="p-3 bg-gray-50 border-t border-gray-100 flex justify-between items-center text-[11px]">
+                        <span class="text-gray-500 font-medium">
+                            <i class="fa-solid fa-check-double text-green-600 mr-1"></i> Verificado Flores
+                        </span>
+                        <button onclick="copiarDetalle('${engine.name}', '${engine.code}', '${engine.yearStr}')" class="text-brand-red font-bold hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-copy"></i> Copiar Ficha
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Aplicar Filtros (Buscador Avanzado MEJORADO por año exacto y texto)
+        function applyFilters() {
+            const queryText = document.getElementById('filter-search').value.toLowerCase().trim();
+            const selectedBrand = document.getElementById('filter-brand').value;
+            const inputYear = parseInt(document.getElementById('filter-year').value);
+
+            const filtered = MOTORES.filter(engine => {
+                // 1. Filtro por Marca
+                if (selectedBrand && engine.brand !== selectedBrand) {
+                    return false;
+                }
+
+                // 2. Filtro por Año Exacto (evalúa si el año ingresado está dentro del array de años del motor)
+                if (!isNaN(inputYear)) {
+                    if (!engine.years.includes(inputYear)) {
+                        return false;
+                    }
+                }
+
+                // 3. Filtro por Texto Búsqueda Libre (Nombre, Código, Modelos de auto, Rango de años escrito)
+                if (queryText !== '') {
+                    const matchName = engine.name.toLowerCase().includes(queryText);
+                    const matchCode = engine.code.toLowerCase().includes(queryText);
+                    const matchYearStr = engine.yearStr.toLowerCase().includes(queryText);
+                    const matchNotes = engine.notes.toLowerCase().includes(queryText);
+                    const matchVehicles = engine.vehicles.some(v => v.toLowerCase().includes(queryText));
+
+                    if (!matchName && !matchCode && !matchYearStr && !matchNotes && !matchVehicles) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            // Mostrar/Ocultar tag de status de filtros
+            const filterTag = document.getElementById('filter-status-tag');
+            if (queryText || selectedBrand || !isNaN(inputYear)) {
+                filterTag.classList.remove('hidden');
+            } else {
+                filterTag.classList.add('hidden');
+            }
+
+            renderCatalog(filtered);
+        }
+
+        // Limpiar Filtros
+        function clearFilters() {
+            document.getElementById('filter-search').value = '';
+            document.getElementById('filter-brand').value = '';
+            document.getElementById('filter-year').value = '';
+            applyFilters();
+        }
+
+        // Copiar Ficha Técnica
+        function copiarDetalle(nombre, codigo, anos) {
+            const texto = `AUTOMOTRIZ GRUPO FLORES\nFicha Técnica: ${nombre}\nCódigo/Forja: ${codigo}\nAños Compatibles: ${anos}\nConsulta disponibilidad e inspección en taller.`;
+            
+            // Método compatible para copiar iframe
+            const el = document.createElement('textarea');
+            el.value = texto;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            alert('Ficha del motor copiada al portapapeles: ' + nombre);
+        }
+
+        // Lógica para Checklist
+        function updateCheckProgress() {
+            const checkboxes = document.querySelectorAll('.chk-item');
+            let checkedCount = 0;
+            checkboxes.forEach(chk => {
+                if (chk.checked) checkedCount++;
+            });
+
+            const percent = Math.round((checkedCount / checkboxes.length) * 100);
+            document.getElementById('chk-percentage').innerText = percent + '%';
+            document.getElementById('chk-bar').style.width = percent + '%';
+        }
+
+        function resetChecklist() {
+            const checkboxes = document.querySelectorAll('.chk-item');
+            checkboxes.forEach(chk => chk.checked = false);
+            updateCheckProgress();
+        }
+
+        // Inicialización al cargar la página
+        window.onload = function() {
+            document.getElementById('year-copy').innerText = new Date().getFullYear();
+            renderCatalog(MOTORES);
+            updateCheckProgress();
+        };
+    </script>
+</body>
+</html>
